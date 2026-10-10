@@ -96,6 +96,10 @@
       <table id="preview"></table>
     </div>
     <p class="note" id="previewNote"></p>
+    <details class="diagbox">
+      <summary>诊断信息（读到的原始内容，出问题时可以发给我）</summary>
+      <pre id="diag"></pre>
+    </details>
   </section>
 
   <section class="card tips">
@@ -106,7 +110,9 @@
       <li>同一张表里出现重复列名时，第二列会保留为 <code>列名 (2)</code>，不会覆盖。</li>
       <li>每个数据源都可以单独取消勾选，或手动指定表头在第几行。</li>
       <li>所有解析与合并都在你的浏览器本地完成，文件不会被上传到任何服务器。</li>
+      <li>部分导出的 xlsx 里「表格范围」标记是错的（只写到表头行），本工具会按真实单元格重新计算范围读取，不受影响。</li>
     </ul>
+    <p class="ver">v2 · 2026-10-10</p>
   </section>
 
 </main>

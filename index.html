@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>表格合并 · 多 Excel 合并成一个</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">
+    <span class="logo">⊞</span>
+    <div>
+      <h1>表格合并</h1>
+      <p>多个 Excel / CSV 合成一张表 · 表头自动对齐 · 全本地处理不上传</p>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- 1. 选文件 -->
+  <section class="card">
+    <div id="drop" class="drop">
+      <div class="drop-icon">⤵</div>
+      <div class="drop-title">拖拽文件到这里，或</div>
+      <button class="btn primary" id="pick">选择 Excel 文件</button>
+      <div class="drop-hint">支持 .xlsx .xls .xlsm .xlsb .ods .csv .tsv —— 可一次选多个，多工作表会一并读取</div>
+      <input type="file" id="file" multiple hidden
+             accept=".xlsx,.xls,.xlsm,.xlsb,.ods,.csv,.tsv,.txt">
+    </div>
+    <div id="parsing" class="parsing" hidden>
+      <div class="spinner"></div><span id="parsingText">正在解析…</span>
+    </div>
+  </section>
+
+  <!-- 2. 选项 -->
+  <section class="card" id="optCard" hidden>
+    <h2>合并设置</h2>
+    <div class="opts">
+      <label class="opt">
+        <span>合并方式</span>
+        <select id="mode">
+          <option value="align">表头对齐合并（列名对齐）</option>
+          <option value="stack">直接堆叠（各表原样上下拼接）</option>
+        </select>
+      </label>
+
+      <label class="opt">
+        <span>表头</span>
+        <select id="headerMode">
+          <option value="auto">自动识别表头行（会跳过标题行）</option>
+          <option value="first">第一行是表头</option>
+          <option value="none">没有表头（首行也是数据）</option>
+        </select>
+      </label>
+
+      <label class="opt check">
+        <input type="checkbox" id="withSource" checked>
+        <span>添加来源列（文件名 / 工作表）</span>
+      </label>
+
+      <label class="opt check">
+        <input type="checkbox" id="dedupe">
+        <span>删除完全重复的行</span>
+      </label>
+
+      <label class="opt check">
+        <input type="checkbox" id="keepBlank">
+        <span>保留空行</span>
+      </label>
+
+      <label class="opt check">
+        <input type="checkbox" id="allSheets" checked>
+        <span>读取所有工作表（取消则只读第一个）</span>
+      </label>
+    </div>
+
+    <h2 class="mt">已读取的数据源</h2>
+    <div class="tablelist" id="tableList"></div>
+  </section>
+
+  <!-- 3. 结果 -->
+  <section class="card" id="resCard" hidden>
+    <div class="resHead">
+      <h2>合并结果</h2>
+      <div class="stats" id="stats"></div>
+    </div>
+    <div class="actions">
+      <button class="btn primary" id="exportX">导出 Excel (.xlsx)</button>
+      <button class="btn" id="exportC">导出 CSV</button>
+      <button class="btn ghost" id="reset">清空重来</button>
+    </div>
+    <div class="previewWrap">
+      <table id="preview"></table>
+    </div>
+    <p class="note" id="previewNote"></p>
+  </section>
+
+  <section class="card tips">
+    <h2>说明</h2>
+    <ul>
+      <li><b>表头对齐合并</b>：把所有表的表头取并集，按列名对齐。某个表缺少的列留空，列的顺序按首次出现排列 —— 不会丢任何一列。</li>
+      <li>同名表头写法不同也能对齐（自动忽略空格、大小写差异，<code>姓名</code> 与 <code>姓 名</code> 视为同一列）。</li>
+      <li>同一张表里出现重复列名时，第二列会保留为 <code>列名 (2)</code>，不会覆盖。</li>
+      <li>每个数据源都可以单独取消勾选，或手动指定表头在第几行。</li>
+      <li>所有解析与合并都在你的浏览器本地完成，文件不会被上传到任何服务器。</li>
+    </ul>
+  </section>
+
+</main>
+
+<script src="vendor/sheetjs.full.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

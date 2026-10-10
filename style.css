@@ -107,3 +107,11 @@ tbody tr:nth-child(even) td{background:rgba(127,127,127,.045)}
 .tips b{color:var(--fg)}
 .tips code{background:var(--chip);padding:1px 5px;border-radius:5px;font-size:12px}
 .err{color:var(--danger);font-size:12.5px;margin-top:8px}
+
+/* v2：警示与诊断 */
+.warnline{color:var(--danger);font-size:12px;margin-top:5px;line-height:1.5}
+.diagbox{margin-top:16px;border-top:1px solid var(--line);padding-top:10px}
+.diagbox summary{color:var(--sub);font-size:12.5px;cursor:pointer}
+#diag{white-space:pre-wrap;word-break:break-all;font-size:11.5px;line-height:1.6;color:var(--sub);
+  background:var(--chip);padding:10px 12px;border-radius:9px;margin:8px 0 0;max-height:280px;overflow:auto}
+.ver{color:var(--sub);font-size:11px;margin:14px 0 0;text-align:right;opacity:.7}
